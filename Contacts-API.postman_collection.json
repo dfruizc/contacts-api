@@ -1,0 +1,344 @@
+{
+	"info": {
+		"_postman_id": "contacts-api-collection",
+		"name": "Contacts API",
+		"description": "API REST de Contactos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET - Listar todos los contactos",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/contacts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contacts"
+					]
+				},
+				"description": "Lista todos los contactos"
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Obtener contacto por ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/contacts/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contacts",
+						"1"
+					]
+				},
+				"description": "Obtiene contacto por ID"
+			},
+			"response": []
+		},
+		{
+			"name": "POST - Crear contacto (sin teléfonos)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"first_name\": \"Ana\",\n  \"last_name\": \"García\",\n  \"email\": \"ana@example.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/contacts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contacts"
+					]
+				},
+				"description": "Crea contacto sin teléfonos"
+			},
+			"response": []
+		},
+		{
+			"name": "POST - Crear contacto (con teléfonos)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"first_name\": \"Juan\",\n  \"last_name\": \"Pérez\",\n  \"email\": \"juan@example.com\",\n  \"phones\": [\n    \"3110000000\",\n    \"310555444\"\n  ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/contacts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contacts"
+					]
+				},
+				"description": "Crea contacto con teléfonos"
+			},
+			"response": []
+		},
+		{
+			"name": "POST - Crear contacto (múltiples teléfonos)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"first_name\": \"María\",\n  \"last_name\": \"López\",\n  \"email\": \"maria@example.com\",\n  \"phones\": [\n    \"1234567890\",\n    \"+1 555 123 4567\",\n    \"987-654-3210\"\n  ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/contacts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contacts"
+					]
+				},
+				"description": "Crea contacto con múltiples teléfonos"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE - Eliminar contacto",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/contacts/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contacts",
+						"1"
+					]
+				},
+				"description": "Elimina contacto por ID"
+			},
+			"response": []
+		},
+		{
+			"name": "OPTIONS - CORS Preflight",
+			"request": {
+				"method": "OPTIONS",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/contacts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contacts"
+					]
+				},
+				"description": "CORS preflight"
+			},
+			"response": []
+		},
+		{
+			"name": "Validaciones - Errores",
+			"item": [
+				{
+					"name": "POST - Sin campos requeridos (422)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"\",\n  \"last_name\": \"\",\n  \"email\": \"\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/contacts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contacts"
+							]
+						},
+						"description": "Sin campos requeridos (422)"
+					},
+					"response": []
+				},
+				{
+					"name": "POST - Email inválido (422)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"Test\",\n  \"last_name\": \"User\",\n  \"email\": \"email-invalido\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/contacts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contacts"
+							]
+						},
+						"description": "Email inválido (422)"
+					},
+					"response": []
+				},
+				{
+					"name": "POST - Teléfono formato inválido (422)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"Test\",\n  \"last_name\": \"User\",\n  \"email\": \"test@example.com\",\n  \"phones\": [\n    \"123\",\n    \"abc123\"\n  ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/contacts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contacts"
+							]
+						},
+						"description": "Teléfono formato inválido (422)"
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Contacto inexistente (404)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/contacts/999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contacts",
+								"999"
+							]
+						},
+						"description": "Contacto inexistente (404)"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - Contacto inexistente (404)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/contacts/999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contacts",
+								"999"
+							]
+						},
+						"description": "Contacto inexistente (404)"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
+

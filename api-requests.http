@@ -6,7 +6,7 @@
 @baseUrlXampp = http://localhost/contacts-api/public
 
 ### Variables
-@contactId = 5
+@contactId = 2
 
 ##########################################
 ### GET - Listar todos los contactos
@@ -49,11 +49,11 @@ POST {{baseUrl}}/contacts
 Content-Type: application/json
 
 {
-  "first_name": "Juan",
-  "last_name": "Pérez",
-  "email": "juan@example.com",
+  "first_name": "Cathe",
+  "last_name": "Castaño",
+  "email": "cathe@test.com",
   "phones": [
-    "3110000000",
+    "3110111111",
    "310555444"
   ]
 }
