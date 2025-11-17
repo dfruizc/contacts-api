@@ -1,16 +1,23 @@
 <?php
-// config/database.php
-
 declare(strict_types=1);
 
 class Database
 {
-    private string $host = 'localhost';
-    private string $db_name = 'contacts_api';
-    private string $username = 'root';
-    private string $password = '';  // Cambia según tu entorno XAMPP
+    private string $host;
+    private string $db_name;
+    private string $username;
+    private string $password;
 
     private ?PDO $conn = null;
+
+    public function __construct()
+    {
+        // Use environment variables if available (Docker), otherwise use defaults (XAMPP)
+        $this->host = $_ENV['DB_HOST'] ?? getenv('DB_HOST') ?: 'localhost';
+        $this->db_name = $_ENV['DB_NAME'] ?? getenv('DB_NAME') ?: 'contacts_api';
+        $this->username = $_ENV['DB_USER'] ?? getenv('DB_USER') ?: 'root';
+        $this->password = $_ENV['DB_PASSWORD'] ?? getenv('DB_PASSWORD') ?: '';
+    }
 
     public function getConnection(): PDO
     {

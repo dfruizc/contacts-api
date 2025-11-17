@@ -1,0 +1,47 @@
+services:
+  web:
+    build: .
+    container_name: contacts-api-web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./public:/var/www/html/public
+      - ./config:/var/www/html/config
+      - ./controllers:/var/www/html/controllers
+      - ./models:/var/www/html/models
+    environment:
+      - DB_HOST=db
+      - DB_NAME=${DB_NAME:-contacts_api}
+      - DB_USER=${DB_USER:-root}
+      - DB_PASSWORD=${DB_PASSWORD:-rootpassword}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - contacts-network
+
+  db:
+    image: mysql:8.0
+    container_name: contacts-api-db
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD:-rootpassword}
+      - MYSQL_DATABASE=${DB_NAME:-contacts_api}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - contacts-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  contacts-network:
+    driver: bridge
+
+volumes:
+  db_data:
