@@ -1,0 +1,154 @@
+### Contacts API - REST Client Requests
+### Compatible con REST Client extension para VS Code
+### Base URL - Cambiar según el entorno
+
+@baseUrl = http://localhost:8080
+@baseUrlXampp = http://localhost/contacts-api/public
+
+### Variables
+@contactId = 5
+
+##########################################
+### GET - Listar todos los contactos
+##########################################
+
+GET {{baseUrl}}/contacts
+Content-Type: application/json
+
+###
+
+##########################################
+### GET - Obtener un contacto por ID
+##########################################
+
+GET {{baseUrl}}/contacts/{{contactId}}
+Content-Type: application/json
+
+###
+
+##########################################
+### POST - Crear contacto (sin teléfonos)
+##########################################
+
+POST {{baseUrl}}/contacts
+Content-Type: application/json
+
+{
+  "first_name": "Ana",
+  "last_name": "García",
+  "email": "ana@example.com"
+}
+
+###
+
+##########################################
+### POST - Crear contacto (con teléfonos)
+##########################################
+
+POST {{baseUrl}}/contacts
+Content-Type: application/json
+
+{
+  "first_name": "Juan",
+  "last_name": "Pérez",
+  "email": "juan@example.com",
+  "phones": [
+    "3110000000",
+   "310555444"
+  ]
+}
+
+###
+
+##########################################
+### POST - Crear contacto (múltiples teléfonos)
+##########################################
+
+POST {{baseUrl}}/contacts
+Content-Type: application/json
+
+{
+  "first_name": "María",
+  "last_name": "López",
+  "email": "maria@example.com",
+  "phones": [
+    "1234567890",
+    "+1 555 123 4567",
+    "987-654-3210"
+  ]
+}
+
+###
+
+##########################################
+### DELETE - Eliminar contacto
+##########################################
+
+DELETE {{baseUrl}}/contacts/{{contactId}}
+Content-Type: application/json
+
+###
+
+##########################################
+### OPTIONS - CORS Preflight
+##########################################
+
+OPTIONS {{baseUrl}}/contacts
+Content-Type: application/json
+
+###
+
+##########################################
+### Ejemplos de validación (deben fallar)
+##########################################
+
+### POST - Sin campos requeridos (debe retornar 422)
+POST {{baseUrl}}/contacts
+Content-Type: application/json
+
+{
+  "first_name": "",
+  "last_name": "",
+  "email": ""
+}
+
+###
+
+### POST - Email inválido (debe retornar 422)
+POST {{baseUrl}}/contacts
+Content-Type: application/json
+
+{
+  "first_name": "Test",
+  "last_name": "User",
+  "email": "email-invalido"
+}
+
+###
+
+### POST - Teléfono con formato inválido (debe retornar 422)
+POST {{baseUrl}}/contacts
+Content-Type: application/json
+
+{
+  "first_name": "Test",
+  "last_name": "User",
+  "email": "test@example.com",
+  "phones": [
+    "123",
+    "abc123"
+  ]
+}
+
+###
+
+### GET - Contacto inexistente (debe retornar 404)
+GET {{baseUrl}}/contacts/999
+Content-Type: application/json
+
+###
+
+### DELETE - Contacto inexistente (debe retornar 404)
+DELETE {{baseUrl}}/contacts/999
+Content-Type: application/json
+
